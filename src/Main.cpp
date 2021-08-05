@@ -6,6 +6,9 @@ int Screen_H;
 
 float scale_it(float q , float a , float b , float c ,float d);
 void draw(sf::RenderWindow &app ,sf::CircleShape &circle);
+void screenshot(sf::RenderWindow &app);
+
+int count = 0;
 
 class Star{
     float x , y , z , pz;
@@ -97,6 +100,9 @@ int main()
                 case sf::Keyboard::Escape:
                     app.close( );
                     break;
+                case sf::Keyboard::P:
+                    screenshot( app );
+                    break;
                 default:
                     break;
                 }
@@ -125,4 +131,11 @@ float scale_it(float q , float a , float b , float c ,float d){
     float temp = (b - (q/(b-a)*b))/b;
 
     return (d- temp*(d-c));
+}
+void screenshot(sf::RenderWindow &app){
+    sf::Texture _tex;
+    _tex.create( app.getSize( ).x , app.getSize( ).y );
+    _tex.update( app );
+    _tex.copyToImage( ).saveToFile("Background"+std::to_string(count)+".png");
+    count++;
 }
